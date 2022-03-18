@@ -2,12 +2,12 @@ import { Glumac } from "./Glumac.js";
 export class Film{
 
 
-    constructor(id,naziv,ocena,zanrId,prodavnica){
+    constructor(id,naziv,ocena,zanrId,katalog){
         this.id = id;
         this.naziv = naziv;
         this.ocena = ocena;
         this.zanrId = zanrId;
-        this.prodavnica = prodavnica;
+        this.katalog = katalog;
         this.kontejner = null;
     }
 
@@ -143,19 +143,30 @@ export class Film{
         a.innerHTML = "Izbrisi";
         a.onclick = async (ev) =>{
             await fetch("http://localhost:5001/Film/ObrisiFilm/" + this.id, { method: "DELETE"});
-            document.body.removeChild(this.prodavnica.kontejner);
-            this.prodavnica.Crtaj(document.body);
+            document.body.removeChild(this.katalog.kontejner);
+            this.katalog.Crtaj(document.body);
         }
         this.kontejner.appendChild(a);
 
+        
+        fetch("http://localhost:5001/Film/PreuzmiRezisera/" + this.id,{method:"GET"}).then(p=>{
+            p.json().then(p=>{
+                if(p.reziser != null){
+                a = document.createElement("td");
+                a.innerHTML = p.reziser.ime +" "+ p.reziser.prezime;
+                this.kontejner.appendChild(a);
+                }
+            })
+        })
+
         this.kontejner.onclick = (ev) =>{
             
-            if(this.prodavnica.izabraniFilm != null)
-                this.prodavnica.izabraniFilm.style.backgroundColor = "";
-            this.prodavnica.izabraniFilm = this.kontejner;
-            this.prodavnica.izabraniFilm.style.backgroundColor = "orange";
+            if(this.katalog.izabraniFilm != null)
+                this.katalog.izabraniFilm.style.backgroundColor = "";
+            this.katalog.izabraniFilm = this.kontejner;
+            this.katalog.izabraniFilm.style.backgroundColor = "orange";
 
-            this.UcitajGlumce(this.prodavnica.kontejner);
+            this.UcitajGlumce(this.katalog.kontejner);
             
             this.IzmenaFilm(document.querySelector(".dodavanjeBrisanjeDiv"));
         }
@@ -207,6 +218,10 @@ export class Film{
 
         let izmeniOcenaIn = document.createElement("input");
         izmeniOcenaIn.value = this.ocena;
+        izmeniOcenaIn.type = "number";
+        izmeniOcenaIn.min = 1;
+        izmeniOcenaIn.max = 10;
+        izmeniOcenaIn.step = "0.1";
         izmenaDiv.appendChild(izmeniOcenaIn);
         
 
@@ -217,7 +232,7 @@ export class Film{
         izmenaZanrLab.innerHTML = "Zanr ";
         let selekcija = document.createElement("select");
         let opcija;
-        this.prodavnica.listaZanrova.forEach(e=>{
+        this.katalog.listaZanrova.forEach(e=>{
             opcija = document.createElement("option");
             opcija.innerHTML = e.naziv;
             opcija.value = e.id;
@@ -237,8 +252,8 @@ export class Film{
             await fetch(`http://localhost:5001/Film/IzmeniFilm/${this.id}/${izmeniNazivIn.value}/${izmeniOcenaIn.value}/${selekcija.value}`,{
                 method: "PUT"
             });
-            document.body.removeChild(this.prodavnica.kontejner);
-            this.prodavnica.Crtaj(document.body);
+            document.body.removeChild(this.katalog.kontejner);
+            this.katalog.Crtaj(document.body);
             
             
 

@@ -1,11 +1,11 @@
 import { Film } from "./Film.js";
-export class Prodavnica {
+export class Katalog {
 
 
     constructor(listaZanrova,ukupnoFilmova){
         this.listaZanrova = listaZanrova;
  
-        this.ukupnoFilmova = ukupnoFilmova; //promeni kad dodajes
+        this.ukupnoFilmova = ukupnoFilmova; 
         this.izabraniFilm = null;
 
         this.trenutnaStrana = 0;
@@ -155,7 +155,7 @@ export class Prodavnica {
         tabelaBody.className = "tabelaBody";
         tabela.appendChild(tabelaBody);
 
-        let zaglavlje = ["Naziv","Ocena","Zanr"];
+        let zaglavlje = ["Naziv","Ocena","Zanr","Izbrisi","Reziser"];
         let elem;
         zaglavlje.forEach(e =>{
             elem = document.createElement("th");
@@ -238,6 +238,10 @@ export class Prodavnica {
         dodajOcenaDiv.appendChild(dodajOcenaLab);
 
         let dodajOcenaIn = document.createElement("input");
+        dodajOcenaIn.type = "number";
+        dodajOcenaIn.min = 1;
+        dodajOcenaIn.max = 10;
+        dodajOcenaIn.step = "0.1";
         dodajOcenaDiv.appendChild(dodajOcenaIn);
 
             //zanr

@@ -23,6 +23,9 @@ namespace ProjekatWEB.Controllers
         [HttpGet]
         public async Task<ActionResult> PreuzmiGlumce(string ime,string prezime){
             try{
+                if(ime == "" || prezime == "")
+                    return BadRequest("greska pri unosu");
+
                 if(await Context.Glumci.Where(p=>p.Ime == ime && p.Prezime == prezime).ToListAsync() == null)
                     return Ok("0");
                 return Ok(await Context.Glumci.Where(p=>p.Ime == ime && p.Prezime == prezime).ToListAsync());
@@ -36,6 +39,8 @@ namespace ProjekatWEB.Controllers
         [HttpPost]
         public async Task<ActionResult> DodajGlumca(string ime, string prezime){
             try{
+                if(ime == "" || prezime == "")
+                    return BadRequest("greska pri unosu");
 
                 Glumac glumac = new Glumac{
                     Ime = ime,
@@ -53,13 +58,14 @@ namespace ProjekatWEB.Controllers
         [HttpGet]
         public async Task<ActionResult> PreuzmiFilmoveGlumca(int strana,string glumacIme,string glumacPrezime){
             try{
-                
+                if(strana < 0 || glumacIme == "" || glumacPrezime == "")
+                    return BadRequest("greska pri unosu");
                 
                 var filmoviGlumca = Context.Glumci
                 .Include(p=>p.Filmovi)
                 .ThenInclude(p=>p.Filmovi)
                 .Where(p=>p.Ime == glumacIme && p.Prezime == glumacPrezime);
-                //.ThenInclude(e=>e.);
+
                 return Ok(await filmoviGlumca.Select(p=> new {
                     s = p.Filmovi.Select(q=>new {
                         filmoviId = q.Filmovi.Naziv,
@@ -79,6 +85,9 @@ namespace ProjekatWEB.Controllers
         [HttpPost]
         public async Task<ActionResult> DodajUlogu(int filmId,int glumacId,string uloga){
             try{
+                if(filmId < 0 || glumacId < 0 || uloga == "")
+                    return BadRequest("greska pri unosu");
+
                 var film = await Context.Filmovi.Where(p=>p.ID == filmId).FirstOrDefaultAsync();
                 var glumac = await Context.Glumci.Where(p=>p.ID == glumacId).FirstOrDefaultAsync();
 
@@ -86,6 +95,7 @@ namespace ProjekatWEB.Controllers
                     Filmovi = film,
                     Glumci = glumac,
                     Uloga = uloga
+                    
                 };
 
                 Context.FilmoviGlumci.Add(novaUloga);
@@ -101,7 +111,10 @@ namespace ProjekatWEB.Controllers
         [HttpDelete]
         public async Task<ActionResult> UkloniUlogu(int ulogaId){
             try{
+                if(ulogaId < 0)
+                    return BadRequest("greska pri unosu");
                 var uloga = await Context.FilmoviGlumci.FindAsync(ulogaId);
+                
                 Context.FilmoviGlumci.Remove(uloga);
                 await Context.SaveChangesAsync();
                 return Ok("Uloga uklonjena");

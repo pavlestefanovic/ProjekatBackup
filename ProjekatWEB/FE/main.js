@@ -1,11 +1,10 @@
-import { Prodavnica } from "./Prodavnica.js";
+import { Katalog } from "./Katalog.js";
 import { Film } from "./Film.js";
 import { Zanr } from "./Zanr.js";
 import { Reziser } from "./Reziser.js";
 
 
 var listaZanrova = [];
-var listaRezisera = [];
 
 await fetch("http://localhost:5001/Zanr/PreuzmiZanr")
 .then( p => {
@@ -24,7 +23,7 @@ await fetch("http://localhost:5001/Zanr/PreuzmiZanr")
 var brStrana = await fetch("http://localhost:5001/Film/IzbrojiFilmove").then(p => p.json());
 
 console.log(brStrana);
-var prodavnica1 = new Prodavnica(listaZanrova,brStrana);
+var katalog = new Katalog(listaZanrova,brStrana);
 
-    prodavnica1.Crtaj(document.body);
+    katalog.Crtaj(document.body);
 

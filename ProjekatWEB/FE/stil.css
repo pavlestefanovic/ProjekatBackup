@@ -1,6 +1,7 @@
 .kontejner{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .brojacStranicaDiv{
@@ -20,6 +21,7 @@
 }
 table{
     border: 2px solid orange;
+    text-align: center;
 }
 .tabelaDiv,.tabela1{
     width: 100%;
