@@ -30,13 +30,7 @@ body{
     background-size: 100%;
 }
 
-.dodavanjeBrisanjeDiv{
-    
-    background-color: white;
-    opacity: 80%;
-    border-radius: 10px;
 
-}
 input{
     background-color: rgb(206, 126, 7);
     border-color: rgba(255, 68, 0, 0.753);
@@ -44,4 +38,24 @@ input{
 
 .dodavanjeDiv,.dodajGlumcaDiv,.izmenaDiv{
     margin: 20px;
+}
+
+.glumciDiv,.dodavanjeBrisanjeDiv{
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    background-color: rgba(121, 187, 15, 0.5);
+    flex-basis: 200px;
+
+}
+
+button{
+    background-color: rgba(218, 167, 25, 0.685);
+    border-color: rgba(218, 167, 25, 0.685);
+    border-radius: 5px;
+}
+select{
+    background-color: rgb(206, 126, 7);
+    border-color: rgba(255, 68, 0, 0.753);
 }
