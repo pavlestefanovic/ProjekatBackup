@@ -2,11 +2,9 @@ import { Film } from "./Film.js";
 export class Prodavnica {
 
 
-    constructor(id,nazivlistaZanrova,ukupnoFilmova){
+    constructor(listaZanrova,ukupnoFilmova){
         this.listaZanrova = listaZanrova;
-        this.id = id;
-        this.naziv = naziv;
-        this.nazivlistaZanrova = nazivlistaZanrova;
+ 
         this.ukupnoFilmova = ukupnoFilmova; //promeni kad dodajes
         this.izabraniFilm = null;
 
@@ -199,9 +197,6 @@ export class Prodavnica {
                     );
                 a.Crtaj(tab);
 
-               // }else{
-                //    console.log("Nije pronadjen ni jedan film");
-                //}
         
             })
         })
@@ -274,7 +269,7 @@ export class Prodavnica {
             this.Crtaj(document.body);
         }else{alert("Nisu popunjena sva polja")}
         }
-        dodavanjeBrisanjeDiv.appendChild(btn);
+        dodavanjeDiv.appendChild(btn);
    
         this.DodajGlumca(dodavanjeBrisanjeDiv);
         

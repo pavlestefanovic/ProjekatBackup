@@ -149,9 +149,14 @@ export class Film{
         this.kontejner.appendChild(a);
 
         this.kontejner.onclick = (ev) =>{
-            this.prodavnica.izabraniFilm = this;
+            
+            if(this.prodavnica.izabraniFilm != null)
+                this.prodavnica.izabraniFilm.style.backgroundColor = "";
+            this.prodavnica.izabraniFilm = this.kontejner;
+            this.prodavnica.izabraniFilm.style.backgroundColor = "orange";
+
             this.UcitajGlumce(this.prodavnica.kontejner);
-            //this.UcitajGlumceUloge(this.prodavnica.kontejner);
+            
             this.IzmenaFilm(document.querySelector(".dodavanjeBrisanjeDiv"));
         }
         
@@ -190,6 +195,7 @@ export class Film{
         izmenaDiv.appendChild(izmeniNazivLab);
 
         let izmeniNazivIn = document.createElement("input");
+        izmeniNazivIn.value = this.naziv;
         izmenaDiv.appendChild(izmeniNazivIn);
 
         let izmeniOcenaDiv = document.createElement("div");
@@ -200,6 +206,7 @@ export class Film{
         izmenaDiv.appendChild(izmeniOcenaLab);
 
         let izmeniOcenaIn = document.createElement("input");
+        izmeniOcenaIn.value = this.ocena;
         izmenaDiv.appendChild(izmeniOcenaIn);
         
 

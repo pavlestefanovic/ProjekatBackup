@@ -24,12 +24,7 @@ await fetch("http://localhost:5001/Zanr/PreuzmiZanr")
 var brStrana = await fetch("http://localhost:5001/Film/IzbrojiFilmove").then(p => p.json());
 
 console.log(brStrana);
-var prodavnica1 = new Prodavnica(id,naziv,listaZanrova,brStrana);
+var prodavnica1 = new Prodavnica(listaZanrova,brStrana);
 
     prodavnica1.Crtaj(document.body);
 
-
-
-
-var prodavnica2 = new Prodavnica(listaZanrova,listaRezisera,brStrana);
-prodavnica2.Crtaj(document.body);
