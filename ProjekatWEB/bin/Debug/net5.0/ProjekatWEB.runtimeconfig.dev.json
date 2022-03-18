@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\Lizurd\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Lizurd\\.nuget\\packages"
+    ]
+  }
+}
